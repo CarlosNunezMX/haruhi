@@ -1,34 +1,87 @@
-import type { Player } from "./player.ts";
 import { Render, type Entity } from "./render.ts";
+import type { Scene } from "./scenes/renderer.ts";
 
-export class Engine{
-    private Player: Entity;
-    private CanvasWidth: number;
-    private CanvasHeight: number;
-    private Canvas: HTMLCanvasElement;
-    private Context: CanvasRenderingContext2D;
-    private LoopNumber: NodeJS.Timer;
-    private RenderingContext: Render;
-    constructor(Player: Entity, Width: number, height: number, canvas: HTMLCanvasElement){
-        this.Player = Player;
-        this.CanvasWidth = Width;
-        this.CanvasHeight = height;
+export class Engine {
+    private Canvas?: HTMLCanvasElement;
+    private Context?: CanvasRenderingContext2D;
+    private RenderingContext?: Render;
+    private run: boolean = true;
+
+    setSize(w: number, h: number): void{
+        if(!this.Canvas)
+            throw "Set a canvas to use this method";
+        this.Canvas.width = w;
+        this.Canvas.height = h;
+    }
+
+    private scenes: Scene[] = [];
+    private currentScene?: string;
+    registerScene(scene: Scene){
+        if(scene.isMain)
+            this.currentScene = scene.uuid;
+        const res = scene.registerScene.bind(scene)();
+        if(res instanceof Promise)
+            return res.then(() => this.scenes.push(scene));
+        console.log("Register:", this.scenes);
+        
+        this.scenes.push.bind(scene);
+    }
+    changeScene(scene: Scene){
+        const hasSceneRegistered = this.scenes.find(s => s.uuid === scene.uuid);
+        if(!hasSceneRegistered)
+            throw "This scene is not registered!";
+        this.currentScene = scene.uuid;
+    }
+    private getCurrentScene(){
+        const r = this.scenes.find(e => e.uuid === this.currentScene);
+        
+        if(!r)
+            throw "Could not find the current scene!";
+        return r;
+    }
+
+    getCurrentSceneUUID(){
+        return this.currentScene;
+    }
+    setCanvas(canvas: HTMLCanvasElement){
         this.Canvas = canvas;
         // @ts-ignore
         this.Context = canvas.getContext('2d');
-        this.RenderingContext = new Render(this.Context);
-        this.RenderingContext.RenderQueeue.push.bind(this.RenderingContext.RenderQueeue)({element: this.Player, id: 'player-1'});
-        if(!this.Context)
-            throw "Canvas does not has a rendering context!";
-        this.RenderingContext.draw.bind(this.RenderingContext)()
-        this.LoopNumber = this.Loop.bind(this)()
-        this.Canvas.height = height;
-        this.Canvas.width = Width;
     }
 
-    private Loop(){
-        return setInterval(() => {
-            this.RenderingContext.update.bind(this.RenderingContext)()
-        }, 1000/60)
+    start(){
+        if (!this.Context || !this.Canvas)
+            throw "Canvas and Context hasn't setted!";
+        this.RenderingContext = Render.getInstance();
+        this.RenderingContext.ctx.bind(this.RenderingContext)(this.Context);
+        console.log("START: SCENES", this.scenes);
+        const scene = this.getCurrentScene.bind(this)()
+        
+        scene.renderer.draw.bind(scene.renderer)();
+        this.Loop.bind(this)()
+    }
+    private constructor() {};
+
+
+    stopRender(){
+        this.run = false;
+    }
+
+    private Loop() {
+        if(!this.RenderingContext)
+            throw "Set an rendering context before use this method!"
+        setInterval(() => {
+            if(!this.run) return;
+            const scene = this.getCurrentScene.bind(this)();
+            scene.renderer.update.bind(scene.renderer)();
+        }, 1000 / 60)
+    }
+
+    private static Instance?: Engine;
+    static getInstance(){
+        if(!this.Instance)
+            this.Instance = new Engine();
+
+        return this.Instance;
     }
 }
