@@ -7,5 +7,9 @@
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "bunview": "^0.0.3",
+    "webview-bun": "^1.0.1"
   }
 }

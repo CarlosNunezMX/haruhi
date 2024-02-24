@@ -1,14 +1,19 @@
+import { MyScene } from "./game/MyFirstScene.ts";
 import { Engine } from "./haruhi/engine.ts";
-import { logger } from "./haruhi/logger.ts";
-import { Player } from "./game/player.ts";
-import { LoadResource } from "./haruhi/loadImage.ts";
 
-const $Canvas = document.querySelector('canvas#game');
-if(!$Canvas){
-    throw "Can not find canvas for game drawning";
+const $Canvas = document.querySelector<HTMLCanvasElement>('canvas#game');
+const context = $Canvas?.getContext("2d");
+if (!$Canvas || !context) {
+    throw "Can not find canvas or the context for game drawning";
 }
 
-const player = await LoadResource('https://art.pixilart.com/eed75aa54e6c6f6.png')
-const MyPlayer = new Player(player);
-// @ts-ignore
-const Game = new Engine(MyPlayer, document.body.clientWidth, window.innerHeight, $Canvas);
+const GameEngine = Engine.getInstance();
+const SceneMain = MyScene.getInstance(context);
+
+await GameEngine.registerScene(SceneMain);
+
+GameEngine.setCanvas($Canvas);
+GameEngine.setSize(document.body.clientWidth, window.innerHeight);
+
+console.log("Before start:", GameEngine);
+GameEngine.start();
