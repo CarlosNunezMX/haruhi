@@ -1,9 +1,10 @@
 import { Entity, Render } from "../render.ts";
 
 export class Scene extends Entity {
+    zindex: number = 0; 
     context: CanvasRenderingContext2D;
     renderer: Render;
-    uuid: string = crypto.randomUUID();
+    uuid: string = window.haruhi.uuid();
     isMain = false;
     constructor(context: CanvasRenderingContext2D){
         super();

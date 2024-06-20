@@ -2,11 +2,14 @@
   "compilerOptions": {
     "lib": ["ESNext","DOM"],
     "target": "ESNext",
-    "module": "ESNext",
+    "module": "NodeNext",
+    "types": ["./haruhi.d.ts", "node"],
     "moduleDetection": "force",
     "jsx": "react-jsx",
     "allowJs": true,
-
+    "paths": {
+      "@/haruhi/*": ["./haruhi/*"]
+    },
     /* Bundler mode */
     "moduleResolution": "NodeNext",
     "allowImportingTsExtensions": true,

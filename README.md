@@ -1,5 +1,5 @@
 # Haruhi - VideoJuego de fin de curso
-Haruhi(codigo clave) sera un videojuego estilo Bullet Hell desarrollado para el Taller: Programación de VideoJuegos de la escuela Preparatoria No.6 de Universidad de Guadalajara
+Haruhi(codigo clave) sera un engine para Videojuegos Web creado en Typescript con una fuerte inclinación a POO
 
 **Registro de Cambios en [docs/changelog.md](docs/changelog.md)**
 

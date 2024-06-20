@@ -1,3 +1,5 @@
+import "@/haruhi/haruhi.ts"
+
 import { MyScene } from "./game/MyFirstScene.ts";
 import { Engine } from "./haruhi/engine.ts";
 

@@ -66,13 +66,16 @@ export class Engine {
     stopRender(){
         this.run = false;
     }
-
+    private lastFrame: number = 0;
     private Loop() {
         if(!this.RenderingContext)
             throw "Set an rendering context before use this method!"
         setInterval(() => {
+            window.haruhi.delta = Date.now() - this.lastFrame;
+            haruhi.delta = Date.now() - this.lastFrame;
             if(!this.run) return;
             const scene = this.getCurrentScene.bind(this)();
+            this.lastFrame = Date.now();
             scene.renderer.update.bind(scene.renderer)();
         }, 1000 / 60)
     }

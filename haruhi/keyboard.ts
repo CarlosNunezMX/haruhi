@@ -52,5 +52,3 @@ export class keyboard {
     }
     
 }
-
-export const Keyboard = new keyboard();
