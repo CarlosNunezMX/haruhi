@@ -16,9 +16,10 @@ export class Engine {
 
     private scenes: Scene[] = [];
     private currentScene?: string;
-    registerScene(scene: Scene){
+    async registerScene(scene: Scene){
         if(scene.isMain)
             this.currentScene = scene.uuid;
+        await scene.attached()
         const res = scene.registerScene.bind(scene)();
         if(res instanceof Promise)
             return res.then(() => this.scenes.push(scene));
@@ -31,6 +32,7 @@ export class Engine {
         if(!hasSceneRegistered)
             throw "This scene is not registered!";
         this.currentScene = scene.uuid;
+        scene.attached.bind(scene)();
     }
     private getCurrentScene(){
         const r = this.scenes.find(e => e.uuid === this.currentScene);

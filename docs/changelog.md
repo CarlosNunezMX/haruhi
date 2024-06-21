@@ -22,3 +22,16 @@
 + Iniciando el desarrollo de un z-index para el renderer
 + **<p><span style="color: green">[FIX]</span> - Se soluciono el error relacionado con la variable `crypto.randomUUID()` moviendola a `haruhi->uuid()`</p>**
 + **<p><span style="color: orange">[WARN]</span> - Se recomienda reescribir sus eventos del teclado para que apunten al nuevo namespace de Haruhi `window.haruhi.keyboard` o `haruhi.keyboard`</p>**
+
+# HaruhiEngine v0.3.1b
++ Se agrego y se corrigio el `z-index`
++ Se agrego la posibilidad de ocultar una entidad a travez de su atributo `hide`
++ **`haruhi.keyboard`** 
+    + Se agrego el HoldingOnce:`string[]`, el cual permite ver si una tecla ha sido presionada y solo dura un frame
+    + Se hicieron privados los atributos que manejaban el Teclado
+    + Se eliminaron varios console.logs, ganando  aproximadamente 2kbs de espacio
++ **`Entity`**
+    + Se agrego el evento **`attached`** el cual sirve para ejecutar codigo antes de que el elemento sea renderizado por primera vez, es un evento asincrono
+    + Nuevas propiedades
+        - `hide: boolean = false` Controla si la entidad sera renderizada o no.
++ Varias mejoras en los controladores de `mouse` y se agrego el Nodo `TextNode` disponible bajo el subfijo `@/haruhi/nodes`

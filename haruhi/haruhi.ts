@@ -8,7 +8,7 @@ window.haruhi = {
     mouse: new Mouse(),
     keyboard: new keyboard(),
     delta: 0,
-    version: "0.3b"
+    version: "0.3.1b"
 
 }
 

@@ -8,7 +8,8 @@
     "jsx": "react-jsx",
     "allowJs": true,
     "paths": {
-      "@/haruhi/*": ["./haruhi/*"]
+      "@/haruhi/*": ["./haruhi/*"],
+      "@/haruhi/nodes/*": ["./haruhi/Nodes/*"],
     },
     /* Bundler mode */
     "moduleResolution": "NodeNext",

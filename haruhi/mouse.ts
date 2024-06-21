@@ -2,6 +2,7 @@ import { Vector2 } from "./types/Vector.ts";
 export type Click = {
     Position: Vector2
     time: number;
+    ClickType: MouseButton;
 }
 
 export enum MouseButton{
@@ -29,7 +30,7 @@ export class Mouse {
             
             this.Click!.Position = new Vector2(ev.clientX, ev.clientY);
             this.Click!.time = Date.now();
-            this.mouseButton = ev.button as MouseButton;
+            this.Click!.ClickType = ev.button as MouseButton;
             setTimeout(() => {
                 this.Click = undefined;
             }, haruhi.delta)

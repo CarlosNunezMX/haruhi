@@ -9,7 +9,7 @@ export class Scene extends Entity {
     constructor(context: CanvasRenderingContext2D){
         super();
         this.context = context;
-        this.renderer = Render.createInstance();
+        this.renderer = Render.getInstance();
         this.renderer.ctx(context);
     }
 

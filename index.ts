@@ -1,7 +1,7 @@
 import "@/haruhi/haruhi.ts"
 
 import { MyScene } from "./game/MyFirstScene.ts";
-import { Engine } from "./haruhi/engine.ts";
+import { Engine } from "@/haruhi/engine.ts";
 
 const $Canvas = document.querySelector<HTMLCanvasElement>('canvas#game');
 const context = $Canvas?.getContext("2d");

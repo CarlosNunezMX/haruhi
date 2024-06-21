@@ -3,7 +3,9 @@ import { Vector2 } from "./types/Vector.ts";
 export class Entity {
     Position = new Vector2();
     zindex?: number;
-    Size = new Vector2();   
+    Size = new Vector2();
+    hidden: boolean = false;
+    async attached(): Promise<void> { }
     draw(ctx: CanvasRenderingContext2D): void { };
     update(ctx: CanvasRenderingContext2D): void { };
 }
@@ -11,29 +13,32 @@ export class Entity {
 type RenderContent = {
     id: string;
     element: Entity;
-    zindex?: number;
 }
 export class Render {
-    rotation:number = 0;    
+    rotation: number = 0;
     RenderQueeue: RenderContent[] = []
     private Context?: CanvasRenderingContext2D;
     ctx(ctx: CanvasRenderingContext2D) {
         this.Context = ctx;
     }
-    putElement(element: Entity) {
+    async putElement(element: Entity) {
         const uuid = window.haruhi.uuid();
+        await element.attached()
         this.RenderQueeue.push({
             id: uuid,
             element
         })
     }
     draw() {
-        this.RenderQueeue.sort((a, b) => (b.element.zindex || 0) - (a.element.zindex || 0)).forEach(e => {
-            const draw = e.element.draw;
-            if (!this.Context)
-                throw "Set the context before start rendering"
-            draw.bind(e.element)(this.Context);
-        })
+        this.RenderQueeue
+            .sort((a, b) => (a.element.zindex || 0) - (b.element.zindex || 0))
+            .filter(e => !e.element.hidden)
+            .forEach(e => {
+                const draw = e.element.draw;
+                if (!this.Context)
+                    throw "Set the context before start rendering"
+                draw.bind(e.element)(this.Context);
+            })
     }
 
     update() {
@@ -55,7 +60,7 @@ export class Render {
         return this.instance;
     }
 
-    public static createInstance(){
+    public static createInstance() {
         return new Render();
     }
 }
