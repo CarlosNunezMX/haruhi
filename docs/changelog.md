@@ -35,3 +35,6 @@
     + Nuevas propiedades
         - `hide: boolean = false` Controla si la entidad sera renderizada o no.
 + Varias mejoras en los controladores de `mouse` y se agrego el Nodo `TextNode` disponible bajo el subfijo `@/haruhi/nodes`
+
+
+**<center><img src="./image-1.png" alt="Haruhi v0.3.1b"/><p>Prueba de el TextNode</p></center>**
