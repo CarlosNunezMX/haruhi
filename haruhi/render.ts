@@ -1,19 +1,12 @@
-import { Vector2 } from "./types/Vector.ts";
+import type { Entity } from "./Entity.ts";
 
-export class Entity {
-    Position = new Vector2();
-    zindex?: number;
-    Size = new Vector2();
-    hidden: boolean = false;
-    async attached(): Promise<void> { }
-    draw(ctx: CanvasRenderingContext2D): void { };
-    update(ctx: CanvasRenderingContext2D): void { };
-}
-
-type RenderContent = {
+export type RenderContent = {
     id: string;
     element: Entity;
 }
+
+
+
 export class Render {
     rotation: number = 0;
     RenderQueeue: RenderContent[] = []

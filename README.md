@@ -4,7 +4,7 @@ Haruhi(codigo clave) sera un engine para Videojuegos Web creado en Typescript co
 **Registro de Cambios en [docs/changelog.md](docs/changelog.md)**
 
 ## Caracteristicas
-**<center>GameEngine en 3.56KiB Minificado</center>**
+**<center>GameEngine en 2.41KiB Minificado</center>**
 
 Aqui dejare un listado de caracteristicas que tendré en cuenta al desarrollar mi videojuego
 - [ ] Debera poderse correr en una ventana, osea fuera de el navegador

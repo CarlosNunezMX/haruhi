@@ -1,4 +1,4 @@
-import { Entity } from "../render.ts";
+import { Entity } from "../Entity.ts";
 import type { Vector2 } from "../types/Vector.ts";
 
 export class TextNode extends Entity {

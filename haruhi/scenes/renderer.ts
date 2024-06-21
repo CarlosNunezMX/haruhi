@@ -1,4 +1,5 @@
-import { Entity, Render } from "../render.ts";
+import { Entity } from "../Entity.ts";
+import { Render } from "../render.ts";
 
 export class Scene extends Entity {
     zindex: number = 0; 

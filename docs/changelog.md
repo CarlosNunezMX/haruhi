@@ -38,3 +38,9 @@
 
 
 **<center><img src="./image-1.png" alt="Haruhi v0.3.1b"/><p>Prueba de el TextNode</p></center>**
+
+# HaruhiEngine v0.3.2b
++ Agregada la propiedad `RelativeTo?: Entity` el cual indica el padre de la entidad, esta es usada para calcular
+las coordenadas en base a las de la Entidad padre
++ Agregados nuevos nodos: `TextNode` y modificado `ImageNode`
++ Modulación del sistema de Renderizado.
